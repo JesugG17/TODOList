@@ -1,7 +1,7 @@
 const HtmlWebpack    = require('html-webpack-plugin')
 const MiniCssExtract = require('mini-css-extract-plugin');
 const CopyPlugin     = require("copy-webpack-plugin");
-
+const path           = require('path');
 
 const CssMinimizer = require('css-minimizer-webpack-plugin');
 const Terser       = require('terser-webpack-plugin');
@@ -12,7 +12,8 @@ module.exports = {
 
     output: {
         clean: true,
-        filename: 'main.[contenthash].js'
+        filename: 'main.[contenthash].js',
+        path: path.resolve(__dirname, 'docs')
     },
     
 
