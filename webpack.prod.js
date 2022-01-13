@@ -1,26 +1,21 @@
-const HtmlWebpack    = require('html-webpack-plugin')
-const MiniCssExtract = require('mini-css-extract-plugin');
-const CopyPlugin     = require("copy-webpack-plugin");
-const path           = require('path');
+const HtmlWebPackPlugin    = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const path                 = require("path");
+const TerserPlugin         = require("terser-webpack-plugin");
+const CssMinimizerPlugin   = require("css-minimizer-webpack-plugin");
 
-const CssMinimizer = require('css-minimizer-webpack-plugin');
-const Terser       = require('terser-webpack-plugin');
 
 module.exports = {
-    
-    mode: "production",
-
+    mode: 'production',
     output: {
         clean: true,
-        filename: 'main.[contenthash].js',
-        path: path.resolve(__dirname, 'docs')
+         filename: 'main.[fullhash].js',
+         path: path.resolve(__dirname, 'docs')
     },
-    
-
     module: {
         rules: [
             {
-                test: /\.html$/,
+                test: /\.html$/, 
                 loader: 'html-loader',
                 options: {
                     sources: false
@@ -29,15 +24,16 @@ module.exports = {
             {
                 test: /\.css$/,
                 exclude: /styles.css$/,
-                use: [ 'style-loader', 'css-loader']
+                use: ['style-loader', 'css-loader' ]
+
             },
-            {
+            { 
                 test: /styles.css$/,
-                use: [ MiniCssExtract.loader, 'css-loader' ]
+                use: [MiniCssExtractPlugin.loader, "css-loader"],
             },
             {
                 test: /\.(png|jpe?g|gif)$/,
-                loader: 'file-loader'
+                loader: 'file-loader',
             },
             {
                 test: /\.m?js$/,
@@ -55,29 +51,26 @@ module.exports = {
     optimization: {
         minimize: true,
         minimizer: [
-            new CssMinimizer(),
-            new Terser(),
+            new TerserPlugin(),
+            new CssMinimizerPlugin(),
         ]
     },
 
     plugins: [
-        new HtmlWebpack({
-            title: 'Mi Webpack App',
-            // filename: 'index.html',
-            template: './src/index.html'
+        new HtmlWebPackPlugin({
+            template: 'src/index.html'
         }),
-        
-        new MiniCssExtract({
+        new MiniCssExtractPlugin({
             filename: '[name].[fullhash].css',
-            ignoreOrder: false
+            ignoreOrder: false,
+            
         }),
+        new TerserPlugin({
 
-        new CopyPlugin({
-            patterns: [
-                { from: 'src/assets/', to: 'assets/' }
-            ]
+        }),
+        new CssMinimizerPlugin({
+            
         })
-    ]
-}
-
+    ],
+}   
 
