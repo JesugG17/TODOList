@@ -1,5 +1,5 @@
 export enum Filter {
-    All = 'all',
-    Completed = 'completed',
-    Pending = 'pending'
+    All = 'All',
+    Completed = 'Completed',
+    Pending = 'Pending'
 };

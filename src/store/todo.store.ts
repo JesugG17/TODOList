@@ -32,7 +32,7 @@ const getTodos = ( filter: Filter = Filter.All ) => {
 const loadStore = () => {
     const loadedState: State = JSON.parse(localStorage.getItem('state') ?? JSON.stringify(state));
     state.todos = [...loadedState.todos];
-    state.filter = loadedState.filter; 
+    state.filter = loadedState.filter ?? Filter.All; 
 }
 
 const saveStateToLocalStorage = () => {
@@ -66,7 +66,7 @@ const deleteTodo = ( todoId: string ) => {
 }
 
 const deleteCompleted = () => {
-    state.todos = state.todos.filter( todo => todo.done );
+    state.todos = state.todos.filter( todo => !todo.done );
     saveStateToLocalStorage();
 }
 
