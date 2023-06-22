@@ -10,7 +10,7 @@ export class Todo {
     constructor(description: string) {
         this.todoId = uuid();
         this.description = description;
-        this.done = false;
+        this.done = true;
         this.createdAt = new Date();
     }
 
