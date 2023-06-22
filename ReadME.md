@@ -1,2 +1,2 @@
-# TODOApp
-Simple todoapp with vanilla javascript and vite
+# Todo App
+Simple todo app with vite and typescript (migrated from javascript and webpack)
