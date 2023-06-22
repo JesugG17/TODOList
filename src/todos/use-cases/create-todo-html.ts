@@ -5,7 +5,7 @@ export const createTodoHTML = ( todo: Todo ) => {
 
     const html = `
         <div class="view">
-            <input class="toggle" type="checkbox" ${ todo.done && 'checked' }>
+            <input class="toggle" type="checkbox" ${ todo.done ? 'checked' : '' }>
             <label>${ todo.description }</label>
             <button class="destroy"></button>
         </div>
@@ -15,6 +15,6 @@ export const createTodoHTML = ( todo: Todo ) => {
     const liElement = document.createElement('li');
     liElement.innerHTML = html;
     liElement.setAttribute('data-id', todo.todoId);
-    liElement.classList.add(todo.done ? 'completed' : '');
+    if (todo.done) liElement.classList.add('completed');
     return liElement
 } 
