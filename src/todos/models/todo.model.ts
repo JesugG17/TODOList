@@ -1,14 +1,14 @@
-
+import { v4 as uuid } from 'uuid';
 
 export class Todo {
     
-    private description: string;
-    private todoId: number;
-    private done: boolean;
-    private createdAt: Date;
+    public description: string;
+    public todoId: string;
+    public done: boolean;
+    public createdAt: Date;
 
     constructor(description: string) {
-        this.todoId = 1;
+        this.todoId = uuid();
         this.description = description;
         this.done = false;
         this.createdAt = new Date();
